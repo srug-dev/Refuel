@@ -1,3 +1,7 @@
 <resources>
+    <!-- Common -->
     <string name="app_name">Refuel</string>
+    <!-- Activities -->
+    <string name="activity_main_drawer_layout_opening">Opening</string>
+    <string name="activity_main_drawer_layout_closing">Closing</string>
 </resources>
