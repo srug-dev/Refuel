@@ -19,7 +19,7 @@
         <item name="android:logo">@color/transparent</item>
         <item name="android:background">@color/primary_color_dark</item>
         <item name="android:displayOptions">homeAsUp|showCustom</item>
-        <item name="android:paddingStart">@dimen/activity_horizontal_margin_short</item>
+        <item name="android:paddingStart">@dimen/activity_horizontal_margin_medium</item>
     </style>
 
 </resources>

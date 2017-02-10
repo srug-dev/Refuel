@@ -1,11 +1,15 @@
 <resources>
     <!-- Margins -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_horizontal_margin_short">8dp</dimen>
-    <dimen name="activity_horizontal_margin_xshort">4dp</dimen>
+    <dimen name="activity_horizontal_margin_medium">8dp</dimen>
+    <dimen name="activity_horizontal_margin_small">4dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin_short">8dp</dimen>
-    <dimen name="activity_vertical_margin_xshort">4dp</dimen>
+    <dimen name="activity_vertical_margin_medium">8dp</dimen>
+    <dimen name="activity_vertical_margin_small">4dp</dimen>
+    <!-- Sizes -->
+    <dimen name="fragment_archive_row_large">30dp</dimen>
+    <dimen name="fragment_archive_row_medium">25dp</dimen>
+    <dimen name="fragment_record_button_width">120dp</dimen>
     <!-- Widths -->
     <dimen name="fragment_drawer_width">300dp</dimen>
 </resources>

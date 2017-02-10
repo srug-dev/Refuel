@@ -21,6 +21,8 @@ public class MainActivity extends GenericActivity<MVP.MainRequiredViewOps,
         implements MVP.MainRequiredViewOps {
 
     private DrawerLayout mDrawerLayout;
+    private ArchiveFragment mArchiveFragment;
+    private RecordFragment mRecordFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class MainActivity extends GenericActivity<MVP.MainRequiredViewOps,
 
         setupActionBar();
         initializeDrawer();
+        //initializeArchive();
+        initializeRecord();
 
         super.onCreate(MainPresenter.class, this, getIntent().getExtras());
     }
@@ -77,6 +81,30 @@ public class MainActivity extends GenericActivity<MVP.MainRequiredViewOps,
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+    }
+
+    private void initializeArchive() {
+        mArchiveFragment = (ArchiveFragment) getSupportFragmentManager().
+                findFragmentByTag(ArchiveFragment.ARCHIVE_FRAGMENT_TAG);
+        if (mArchiveFragment == null) {
+            mArchiveFragment = new ArchiveFragment();
+            getSupportFragmentManager().beginTransaction().
+                    add(R.id.fragment_archive,
+                            mArchiveFragment,
+                            ArchiveFragment.ARCHIVE_FRAGMENT_TAG).commit();
+        }
+    }
+
+    private void initializeRecord() {
+        mRecordFragment = (RecordFragment) getSupportFragmentManager().
+                findFragmentByTag(RecordFragment.RECORD_FRAGMENT_TAG);
+        if (mRecordFragment == null) {
+            mRecordFragment = new RecordFragment();
+            getSupportFragmentManager().beginTransaction().
+                    add(R.id.fragment_archive,
+                            mRecordFragment,
+                            RecordFragment.RECORD_FRAGMENT_TAG).commit();
+        }
     }
 
     private void switchDrawerLayout() {

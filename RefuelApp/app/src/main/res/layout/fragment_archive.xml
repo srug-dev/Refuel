@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+        <include layout="@layout/partial_fab_add_record"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_archive_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_archive_row_large"
+        android:orientation="horizontal"
+        android:background="@color/primary_color"
+        android:weightSum="10">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:text="@string/fragment_archive_date"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:text="@string/fragment_archive_avg_consumption"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_records_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_archive_header"/>
+
+</FrameLayout>
