@@ -325,7 +325,6 @@ public class DataProviderImplSQLite extends DataProviderImpl {
         private static final String SQLITE_DB_NAME = "srug_refuel_db";
 
         private static final int DATABASE_VERSION = 1;
-        private static final String AUTOINCREMENT = "AUTOINCREMENT";
         private static final String INTEGER = "INTEGER";
         private static final String NOT_NULL = "NOT NULL";
         private static final String NUMERIC = "NUMERIC";
@@ -335,13 +334,13 @@ public class DataProviderImplSQLite extends DataProviderImpl {
         private final String mCreateTableUsers
                 = "CREATE TABLE " + DataContract.UserEntry.USER_TABLE_NAME + " ("
                 + DataContract.UserEntry.COLUMN_USER_ID + " " + INTEGER
-                + " PRIMARY KEY " + AUTOINCREMENT + ", "
+                + " PRIMARY KEY, "
                 + DataContract.UserEntry.COLUMN_EMAIL + " " + TEXT + ")";
 
         private final String mCreateTableVehicles
                 = "CREATE TABLE " + DataContract.VehicleEntry.VEHICLE_TABLE_NAME + "("
                 + DataContract.VehicleEntry.COLUMN_VEHICLE_ID + " " + INTEGER
-                + " PRIMARY KEY " + AUTOINCREMENT + ", "
+                + " PRIMARY KEY, "
                 + DataContract.VehicleEntry.COLUMN_USER_ID + " " + INTEGER + " " + NOT_NULL +  ", "
                 + DataContract.VehicleEntry.COLUMN_BRAND + " " + TEXT + ", "
                 + DataContract.VehicleEntry.COLUMN_MODEL + " " + TEXT + ", "
@@ -355,7 +354,7 @@ public class DataProviderImplSQLite extends DataProviderImpl {
         private final String mCreateTableRefuel
                 = "CREATE TABLE " + DataContract.RefuelingEntry.REFUELING_TABLE_NAME + "("
                 + DataContract.RefuelingEntry.COLUMN_REFUELING_ID + " " + INTEGER
-                + " PRIMARY KEY " + AUTOINCREMENT + ", "
+                + " PRIMARY KEY, "
                 + DataContract.RefuelingEntry.COLUMN_VEHICLE_ID + " " + INTEGER + " " + NOT_NULL +  ", "
                 + DataContract.RefuelingEntry.COLUMN_DATE + " " + NUMERIC + " " + NOT_NULL +  ", "
                 + DataContract.RefuelingEntry.COLUMN_DISTANCE + " " + REAL + " " + NOT_NULL +  ", "
