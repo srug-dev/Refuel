@@ -17,20 +17,20 @@ public final class DataContract {
     private DataContract() {
     }
 
-    public static final class RefuelEntry implements BaseColumns {
+    public static final class RefuelingEntry implements BaseColumns {
 
-        public static final String REFUEL_TABLE_NAME = "refuel_table";
+        public static final String REFUELING_TABLE_NAME = "refueling_table";
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
-                .appendPath(REFUEL_TABLE_NAME).build();
+                .appendPath(REFUELING_TABLE_NAME).build();
 
         public static final String CONTENT_ITEMS_TYPE
-                = MIME_TYPE_DIR + CONTENT_AUTHORITY + "/" + REFUEL_TABLE_NAME;
+                = MIME_TYPE_DIR + CONTENT_AUTHORITY + "/" + REFUELING_TABLE_NAME;
 
         public static final String CONTENT_ITEM_TYPE
-                = MIME_TYPE_ITEM + CONTENT_AUTHORITY + "/" + REFUEL_TABLE_NAME;
+                = MIME_TYPE_ITEM + CONTENT_AUTHORITY + "/" + REFUELING_TABLE_NAME;
 
-        public static final String COLUMN_REFUEL_ID = "_id";
+        public static final String COLUMN_REFUELING_ID = "_id";
         public static final String COLUMN_VEHICLE_ID = "vehicle_id";
         public static final String COLUMN_DATE = "date";
         public static final String COLUMN_DISTANCE = "distance";
@@ -38,7 +38,7 @@ public final class DataContract {
         public static final String COLUMN_AMOUNT = "amount";
         public static final String COLUMNS_TO_DISPLAY[]
                 = new String[] {
-                COLUMN_REFUEL_ID,
+                COLUMN_REFUELING_ID,
                 COLUMN_VEHICLE_ID,
                 COLUMN_DATE,
                 COLUMN_DISTANCE,

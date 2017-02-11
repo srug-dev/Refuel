@@ -16,9 +16,9 @@ public abstract class DataProviderImpl {
 
     public static final int VEHICLE_ITEMS = 201;
 
-    public static final int REFUEL_ITEM = 300;
+    public static final int REFUELING_ITEM = 300;
 
-    public static final int REFUEL_ITEMS = 301;
+    public static final int REFUELING_ITEMS = 301;
 
     public static final UriMatcher URI_MATCHER = buildUriMatcher();
 
@@ -51,11 +51,11 @@ public abstract class DataProviderImpl {
                 VEHICLE_ITEM);
 
         matcher.addURI(DataContract.CONTENT_AUTHORITY,
-                DataContract.RefuelEntry.REFUEL_TABLE_NAME,
-                REFUEL_ITEMS);
+                DataContract.RefuelingEntry.REFUELING_TABLE_NAME,
+                REFUELING_ITEMS);
         matcher.addURI(DataContract.CONTENT_AUTHORITY,
-                DataContract.RefuelEntry.REFUEL_TABLE_NAME + "/#",
-                REFUEL_ITEM);
+                DataContract.RefuelingEntry.REFUELING_TABLE_NAME + "/#",
+                REFUELING_ITEM);
 
         return matcher;
     }
@@ -70,10 +70,10 @@ public abstract class DataProviderImpl {
                 return DataContract.VehicleEntry.CONTENT_ITEM_TYPE;
             case VEHICLE_ITEMS:
                 return DataContract.VehicleEntry.CONTENT_ITEMS_TYPE;
-            case REFUEL_ITEM:
-                return DataContract.RefuelEntry.CONTENT_ITEMS_TYPE;
-            case REFUEL_ITEMS:
-                return DataContract.RefuelEntry.CONTENT_ITEM_TYPE;
+            case REFUELING_ITEM:
+                return DataContract.RefuelingEntry.CONTENT_ITEMS_TYPE;
+            case REFUELING_ITEMS:
+                return DataContract.RefuelingEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException(UNKNOWN_URI + uri);
         }
@@ -89,7 +89,7 @@ public abstract class DataProviderImpl {
             case VEHICLE_ITEM:
                 returnUri = insertVehicleEntry(uri, cvs);
                 break;
-            case REFUEL_ITEM:
+            case REFUELING_ITEM:
                 returnUri = insertRefuelEntry(uri, cvs);
                 break;
             default:
@@ -110,13 +110,13 @@ public abstract class DataProviderImpl {
         int returnCount;
         switch (URI_MATCHER.match(uri)) {
             case USER_ITEMS:
-                returnCount = bulkInsertUsers(uri, cvsArray);
+                returnCount = bulkInsertUserEntries(uri, cvsArray);
                 break;
             case VEHICLE_ITEMS:
-                returnCount = bulkInsertVehicles(uri, cvsArray);
+                returnCount = bulkInsertVehicleEntries(uri, cvsArray);
                 break;
-            case REFUEL_ITEMS:
-                returnCount = bulkInsertRefuels(uri, cvsArray);
+            case REFUELING_ITEMS:
+                returnCount = bulkInsertRefuelingEntries(uri, cvsArray);
                 break;
             default:
                 throw new UnsupportedOperationException(UNKNOWN_URI + uri);
@@ -129,11 +129,11 @@ public abstract class DataProviderImpl {
         return returnCount;
     }
 
-    protected abstract int bulkInsertUsers(Uri uri, ContentValues[] cvsArray);
+    protected abstract int bulkInsertUserEntries(Uri uri, ContentValues[] cvsArray);
 
-    protected abstract int bulkInsertVehicles(Uri uri, ContentValues[] cvsArray);
+    protected abstract int bulkInsertVehicleEntries(Uri uri, ContentValues[] cvsArray);
 
-    protected abstract int bulkInsertRefuels(Uri uri, ContentValues[] cvsArray);
+    protected abstract int bulkInsertRefuelingEntries(Uri uri, ContentValues[] cvsArray);
 
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
@@ -151,10 +151,10 @@ public abstract class DataProviderImpl {
             case VEHICLE_ITEMS:
                 cursor = queryVehicleEntries(uri,projection,selection, selectionArgs,sortOrder);
                 break;
-            case REFUEL_ITEM:
+            case REFUELING_ITEM:
                 cursor = queryRefuel(uri,projection,selection,selectionArgs,sortOrder);
                 break;
-            case REFUEL_ITEMS:
+            case REFUELING_ITEMS:
                 cursor = queryRefuelEntries(uri,projection,selection,selectionArgs,sortOrder);
                 break;
             default:
@@ -192,10 +192,10 @@ public abstract class DataProviderImpl {
             case VEHICLE_ITEMS:
                 recsUpdated = updateVehicleEntries(uri, cvs, selection, selectionArgs);
                 break;
-            case REFUEL_ITEM:
+            case REFUELING_ITEM:
                 recsUpdated = updateRefuel(uri, cvs, selection, selectionArgs);
                 break;
-            case REFUEL_ITEMS:
+            case REFUELING_ITEMS:
                 recsUpdated = updateRefuelEntries(uri, cvs, selection, selectionArgs);
                 break;
             default:
@@ -236,10 +236,10 @@ public abstract class DataProviderImpl {
             case VEHICLE_ITEMS:
                 recsDeleted = deleteVehicleEntries(uri, selection, selectionArgs);
                 break;
-            case REFUEL_ITEM:
+            case REFUELING_ITEM:
                 recsDeleted = deleteRefuel(uri, selection, selectionArgs);
                 break;
-            case REFUEL_ITEMS:
+            case REFUELING_ITEMS:
                 recsDeleted = deleteRefuelEntries(uri, selection, selectionArgs);
                 break;
             default:

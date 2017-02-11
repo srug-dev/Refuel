@@ -67,18 +67,18 @@ public class DataProviderImplSQLite extends DataProviderImpl {
     protected Uri insertRefuelEntry(Uri uri, ContentValues cvs) {
         final SQLiteDatabase db = mDataEntryHelper.getWritableDatabase();
 
-        long id = db.insert(DataContract.RefuelEntry.REFUEL_TABLE_NAME, null, cvs);
+        long id = db.insert(DataContract.RefuelingEntry.REFUELING_TABLE_NAME, null, cvs);
 
         //Check if the key are the least significant UUID bits (that's it starts with -)
         if (id != -1) {
-            return DataContract.RefuelEntry.buildDataUri(id);
+            return DataContract.RefuelingEntry.buildDataUri(id);
         } else {
             throw new RuntimeException("Failed to insert row into " + uri);
         }
     }
 
     @Override
-    protected int bulkInsertUsers(Uri uri, ContentValues[] cvsArray) {
+    protected int bulkInsertUserEntries(Uri uri, ContentValues[] cvsArray) {
         final SQLiteDatabase db = mDataEntryHelper.getWritableDatabase();
 
         int returnCount = 0;
@@ -98,7 +98,7 @@ public class DataProviderImplSQLite extends DataProviderImpl {
     }
 
     @Override
-    protected int bulkInsertVehicles(Uri uri, ContentValues[] cvsArray) {
+    protected int bulkInsertVehicleEntries(Uri uri, ContentValues[] cvsArray) {
         final SQLiteDatabase db = mDataEntryHelper.getWritableDatabase();
 
         int returnCount = 0;
@@ -118,14 +118,14 @@ public class DataProviderImplSQLite extends DataProviderImpl {
     }
 
     @Override
-    protected int bulkInsertRefuels(Uri uri, ContentValues[] cvsArray) {
+    protected int bulkInsertRefuelingEntries(Uri uri, ContentValues[] cvsArray) {
         final SQLiteDatabase db = mDataEntryHelper.getWritableDatabase();
 
         int returnCount = 0;
         db.beginTransaction();
         try {
             for (ContentValues cvs : cvsArray) {
-                final long id = db.insert(DataContract.RefuelEntry.REFUEL_TABLE_NAME, null, cvs);
+                final long id = db.insert(DataContract.RefuelingEntry.REFUELING_TABLE_NAME, null, cvs);
                 if (id < 0) {
                     returnCount++;
                 }
@@ -168,14 +168,14 @@ public class DataProviderImplSQLite extends DataProviderImpl {
     @Override
     protected Cursor queryRefuel(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         return mDataEntryHelper.getReadableDatabase().query(
-                DataContract.RefuelEntry.REFUEL_TABLE_NAME,
+                DataContract.RefuelingEntry.REFUELING_TABLE_NAME,
                 projection, selection, selectionArgs, null, null, sortOrder);
     }
 
     @Override
     protected Cursor queryRefuelEntries(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         return mDataEntryHelper.getReadableDatabase().query(
-                DataContract.RefuelEntry.REFUEL_TABLE_NAME,
+                DataContract.RefuelingEntry.REFUELING_TABLE_NAME,
                 projection, selection, selectionArgs, null, null, sortOrder);
     }
 
@@ -225,7 +225,7 @@ public class DataProviderImplSQLite extends DataProviderImpl {
     protected int updateRefuel(Uri uri, ContentValues cvs, String selection, String[] selectionArgs) {
         String currentSelection = addSelectionArgs(selection, selectionArgs, OR);
         return mDataEntryHelper.getWritableDatabase().update(
-                DataContract.RefuelEntry.REFUEL_TABLE_NAME,
+                DataContract.RefuelingEntry.REFUELING_TABLE_NAME,
                 cvs,
                 currentSelection,
                 selectionArgs);
@@ -235,7 +235,7 @@ public class DataProviderImplSQLite extends DataProviderImpl {
     protected int updateRefuelEntries(Uri uri, ContentValues cvs, String selection, String[] selectionArgs) {
         String currentSelection = addSelectionArgs(selection, selectionArgs, OR);
         return mDataEntryHelper.getWritableDatabase().update(
-                DataContract.RefuelEntry.REFUEL_TABLE_NAME,
+                DataContract.RefuelingEntry.REFUELING_TABLE_NAME,
                 cvs,
                 currentSelection,
                 selectionArgs
@@ -284,7 +284,7 @@ public class DataProviderImplSQLite extends DataProviderImpl {
     protected int deleteRefuel(Uri uri, String selection, String[] selectionArgs) {
         String currentSelection = addSelectionArgs(selection, selectionArgs, OR);
         return mDataEntryHelper.getWritableDatabase().delete(
-                DataContract.RefuelEntry.REFUEL_TABLE_NAME,
+                DataContract.RefuelingEntry.REFUELING_TABLE_NAME,
                 currentSelection,
                 selectionArgs);
     }
@@ -293,7 +293,7 @@ public class DataProviderImplSQLite extends DataProviderImpl {
     protected int deleteRefuelEntries(Uri uri, String selection, String[] selectionArgs) {
         String currentSelection = addSelectionArgs(selection, selectionArgs, OR);
         return mDataEntryHelper.getWritableDatabase().delete(
-                DataContract.RefuelEntry.REFUEL_TABLE_NAME,
+                DataContract.RefuelingEntry.REFUELING_TABLE_NAME,
                 currentSelection,
                 selectionArgs
         );
@@ -325,11 +325,12 @@ public class DataProviderImplSQLite extends DataProviderImpl {
         private static final String SQLITE_DB_NAME = "srug_refuel_db";
 
         private static final int DATABASE_VERSION = 1;
+        private static final String AUTOINCREMENT = "AUTOINCREMENT";
         private static final String INTEGER = "INTEGER";
+        private static final String NOT_NULL = "NOT NULL";
+        private static final String NUMERIC = "NUMERIC";
         private static final String REAL = "REAL";
         private static final String TEXT = "TEXT";
-        private static final String NOT_NULL = "NOT NULL";
-        private static final String AUTOINCREMENT = "AUTOINCREMENT";
 
         private final String mCreateTableUsers
                 = "CREATE TABLE " + DataContract.UserEntry.USER_TABLE_NAME + " ("
@@ -343,7 +344,7 @@ public class DataProviderImplSQLite extends DataProviderImpl {
                 + " PRIMARY KEY " + AUTOINCREMENT + ", "
                 + DataContract.VehicleEntry.COLUMN_USER_ID + " " + INTEGER + " " + NOT_NULL +  ", "
                 + DataContract.VehicleEntry.COLUMN_BRAND + " " + TEXT + ", "
-                + DataContract.VehicleEntry.COLUMN_MODEL + " " + INTEGER + ", "
+                + DataContract.VehicleEntry.COLUMN_MODEL + " " + TEXT + ", "
                 + DataContract.VehicleEntry.COLUMN_PLATE + " " + TEXT + ", "
                 + "FOREIGN KEY("
                 + DataContract.VehicleEntry.COLUMN_USER_ID + ")"
@@ -352,16 +353,16 @@ public class DataProviderImplSQLite extends DataProviderImpl {
                 + "(" + DataContract.UserEntry.COLUMN_USER_ID + ") )";
 
         private final String mCreateTableRefuel
-                = "CREATE TABLE " + DataContract.RefuelEntry.REFUEL_TABLE_NAME + "("
-                + DataContract.RefuelEntry.COLUMN_REFUEL_ID + " " + INTEGER
+                = "CREATE TABLE " + DataContract.RefuelingEntry.REFUELING_TABLE_NAME + "("
+                + DataContract.RefuelingEntry.COLUMN_REFUELING_ID + " " + INTEGER
                 + " PRIMARY KEY " + AUTOINCREMENT + ", "
-                + DataContract.RefuelEntry.COLUMN_VEHICLE_ID + " " + INTEGER + " " + NOT_NULL +  ", "
-                + DataContract.RefuelEntry.COLUMN_DATE + " " + TEXT + " " + NOT_NULL +  ", "
-                + DataContract.RefuelEntry.COLUMN_DISTANCE + " " + REAL + " " + NOT_NULL +  ", "
-                + DataContract.RefuelEntry.COLUMN_PRICE + " " + REAL + " " + NOT_NULL +  ", "
-                + DataContract.RefuelEntry.COLUMN_AMOUNT + " " + REAL + " " + NOT_NULL +  ", "
+                + DataContract.RefuelingEntry.COLUMN_VEHICLE_ID + " " + INTEGER + " " + NOT_NULL +  ", "
+                + DataContract.RefuelingEntry.COLUMN_DATE + " " + NUMERIC + " " + NOT_NULL +  ", "
+                + DataContract.RefuelingEntry.COLUMN_DISTANCE + " " + REAL + " " + NOT_NULL +  ", "
+                + DataContract.RefuelingEntry.COLUMN_PRICE + " " + REAL + " " + NOT_NULL +  ", "
+                + DataContract.RefuelingEntry.COLUMN_AMOUNT + " " + REAL + " " + NOT_NULL +  ", "
                 + "FOREIGN KEY("
-                + DataContract.RefuelEntry.COLUMN_VEHICLE_ID + ")"
+                + DataContract.RefuelingEntry.COLUMN_VEHICLE_ID + ")"
                 + " REFERENCES "
                 + DataContract.VehicleEntry.VEHICLE_TABLE_NAME
                 + "(" + DataContract.VehicleEntry.COLUMN_VEHICLE_ID + ") )";
