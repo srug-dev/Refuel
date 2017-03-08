@@ -1,21 +1,37 @@
 <resources>
     <!-- Common -->
     <string name="app_name">Refuel</string>
+    <string name="content_authority">com.srug.mobile.refuel.dataprovider</string>
+    <!-- Action Bar -->
+    <string name="action_bar_title_new_refueling">New Refueling</string>
+    <string name="action_bar_title_refueling_archive">Refueling Archive</string>
     <!-- Activities -->
     <string name="activity_main_drawer_layout_opening">Opening</string>
     <string name="activity_main_drawer_layout_closing">Closing</string>
+    <string name="activity_refueling_close_dialog_title">Close Refueling</string>
+    <string name="activity_refueling_exit_without_saving_message">Do you want to close without saving the current Refueling?</string>
     <!-- Fragments -->
     <string name="fragment_archive_date">Date</string>
+    <string name="fragment_archive_distance">Distance</string>
+    <string name="fragment_archive_price">Price</string>
+    <string name="fragment_archive_consumption">Consumption</string>
     <string name="fragment_archive_avg_consumption">Average Consumption</string>
-    <string name="fragment_record_date">Date:</string>
+    <string name="fragment_record_date">Date</string>
     <string name="fragment_record_change_date">Change Date</string>
-    <string name="fragment_record_distance">Distance:</string>
-    <string name="fragment_record_price">Price:</string>
-    <string name="fragment_record_amount">Amount:</string>
+    <string name="fragment_record_distance">Distance</string>
+    <string name="fragment_record_price">Price</string>
+    <string name="fragment_record_amount">Amount</string>
+    <string name="fragment_record_consumption">Consumption</string>
+    <string name="fragment_record_avg_consumption">Average</string>
     <string name="fragment_record_km">km</string>
     <string name="fragment_record_euros">€</string>
     <string name="fragment_record_litres">l</string>
     <string name="fragment_record_euros_per_litre">€/l</string>
     <string name="fragment_record_litres_each_hundred_km">l/100km</string>
     <string name="fragment_record_submit">Submit</string>
+    <string name="fragment_record_calculate">Calculate</string>
+    <string name="fragment_user_users">Users</string>
+    <string name="fragment_user_vehicles">Vehicles</string>
+    <!-- ViewModels -->
+    <string name="item_refueling_litres_each_hundred_km">@string/fragment_record_litres_each_hundred_km</string>
 </resources>

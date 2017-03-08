@@ -2,14 +2,14 @@ package com.srug.mobile.refuel.model.mediator.data;
 
 import java.util.Date;
 
-public class Refueling {
+public class Refueling implements Comparable {
 
     private Long mId;
     private Long mVehicleId;
     private Date mDate;
-    private Long mDistance;
-    private Long mPrice;
-    private Long mAmount;
+    private Double mDistance;
+    private Double mPrice;
+    private Double mAmount;
 
     public Refueling(Long id, Long vehicleId) {
         mId = id;
@@ -32,27 +32,32 @@ public class Refueling {
         mDate = date;
     }
 
-    public Long getDistance() {
+    public Double getDistance() {
         return mDistance;
     }
 
-    public void setDistance(long distance) {
+    public void setDistance(Double distance) {
         mDistance = distance;
     }
 
-    public Long getPrice() {
+    public Double getPrice() {
         return mPrice;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(Double price) {
         mPrice = price;
     }
 
-    public Long getAmount() {
+    public Double getAmount() {
         return mAmount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(Double amount) {
         mAmount = amount;
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        return getDate().compareTo(((Refueling)another).getDate());
     }
 }

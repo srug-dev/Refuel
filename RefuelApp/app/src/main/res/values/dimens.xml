@@ -6,10 +6,19 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_vertical_margin_medium">8dp</dimen>
     <dimen name="activity_vertical_margin_small">4dp</dimen>
+    <!-- Paddings -->
+    <dimen name="item_user_padding">8dp</dimen>
+    <dimen name="fragment_user_padding">8dp</dimen>
+    <dimen name="background_record_category_shape_padding">5dp</dimen>
+    <!-- Radius -->
+    <dimen name="background_record_category_radius">10dp</dimen>
     <!-- Sizes -->
     <dimen name="fragment_archive_row_large">30dp</dimen>
     <dimen name="fragment_archive_row_medium">25dp</dimen>
     <dimen name="fragment_record_button_width">120dp</dimen>
+    <dimen name="fragment_record_category_height">80dp</dimen>
+    <dimen name="item_view_separator_height">2dp</dimen>
     <!-- Widths -->
     <dimen name="fragment_drawer_width">300dp</dimen>
+    <dimen name="background_record_category_stroke_width">2dp</dimen>
 </resources>

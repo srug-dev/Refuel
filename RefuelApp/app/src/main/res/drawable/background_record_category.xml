@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <stroke
+        android:width="@dimen/background_record_category_stroke_width"
+        android:color="@color/primary_color" />
+    <corners android:radius="@dimen/background_record_category_radius" />
+    <padding
+        android:bottom="@dimen/background_record_category_shape_padding"
+        android:left="@dimen/background_record_category_shape_padding"
+        android:right="@dimen/background_record_category_shape_padding"
+        android:top="@dimen/background_record_category_shape_padding" />
+</shape>

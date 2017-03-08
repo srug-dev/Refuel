@@ -8,6 +8,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- Activities -->
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -15,6 +17,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.RefuelingActivity">
+        </activity>
+
+        <!-- Providers -->
+        <provider
+            android:name="com.srug.mobile.refuel.model.mediator.provider.DataProvider"
+            android:authorities="@string/content_authority"
+            android:exported="false" />
+
     </application>
 
 </manifest>

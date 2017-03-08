@@ -83,13 +83,13 @@ public abstract class DataProviderImpl {
         Uri returnUri;
 
         switch (URI_MATCHER.match(uri)) {
-            case USER_ITEM:
+            case USER_ITEMS:
                 returnUri = insertUserEntry(uri, cvs);
                 break;
-            case VEHICLE_ITEM:
+            case VEHICLE_ITEMS:
                 returnUri = insertVehicleEntry(uri, cvs);
                 break;
-            case REFUELING_ITEM:
+            case REFUELING_ITEMS:
                 returnUri = insertRefuelEntry(uri, cvs);
                 break;
             default:

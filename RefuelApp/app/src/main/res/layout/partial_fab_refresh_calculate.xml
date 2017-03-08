@@ -1,0 +1,10 @@
+<com.github.clans.fab.FloatingActionButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/btn_record_calculate"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:src="@drawable/ic_action_refresh"
+    fab:fab_colorNormal="@color/blue_500"
+    fab:fab_colorPressed="@color/blue_900"
+    fab:fab_size="mini"/>

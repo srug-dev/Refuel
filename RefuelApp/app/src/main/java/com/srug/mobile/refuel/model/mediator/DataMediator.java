@@ -13,6 +13,7 @@ import com.srug.mobile.refuel.model.mediator.provider.DataCache;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 public class DataMediator {
@@ -33,6 +34,7 @@ public class DataMediator {
                 DefaultValues.UNDEFINED_USER_ID);
         if (preferredUserId.equals(DefaultValues.UNDEFINED_USER_ID)) {
             User defaultUser = new User(UUID.randomUUID().getLeastSignificantBits());
+            insertUser(defaultUser);
             preferredUserId = defaultUser.getId();
             setPreferredUser(preferredUserId);
         }
@@ -56,6 +58,7 @@ public class DataMediator {
             Vehicle defaultVehicle = new Vehicle(
                     UUID.randomUUID().getLeastSignificantBits(),
                     preferredUser.getId());
+            insertVehicle(defaultVehicle);
             preferredVehicleId = defaultVehicle.getId();
             setPreferredVehicle(preferredVehicleId);
         }

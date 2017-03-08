@@ -1,7 +1,9 @@
 package com.srug.mobile.refuel.view;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -9,20 +11,25 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.srug.mobile.refuel.MVP;
 import com.srug.mobile.refuel.R;
 import com.srug.mobile.refuel.common.GenericActivity;
 import com.srug.mobile.refuel.presenter.MainPresenter;
+import com.srug.mobile.refuel.utilities.ActivityUtilities;
+import com.srug.mobile.refuel.view.ui.RefuelingListAdapter;
+import com.srug.mobile.refuel.view.ui.UserListAdapter;
+import com.srug.mobile.refuel.view.ui.VehicleListAdapter;
 
 public class MainActivity extends GenericActivity<MVP.MainRequiredViewOps,
         MVP.MainProvidedPresenterOps,
         MainPresenter>
-        implements MVP.MainRequiredViewOps {
+        implements MVP.MainRequiredViewOps, ArchiveFragment.ArchiveFragmentListener {
 
     private DrawerLayout mDrawerLayout;
     private ArchiveFragment mArchiveFragment;
-    private RecordFragment mRecordFragment;
+    private UserFragment mUserFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +38,7 @@ public class MainActivity extends GenericActivity<MVP.MainRequiredViewOps,
 
         setupActionBar();
         initializeDrawer();
-        //initializeArchive();
-        initializeRecord();
+        initializeArchive();
 
         super.onCreate(MainPresenter.class, this, getIntent().getExtras());
     }
@@ -40,6 +46,19 @@ public class MainActivity extends GenericActivity<MVP.MainRequiredViewOps,
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RefuelingActivity.REQUEST_REFUELING_ACTIVITY:
+                    getPresenter().reloadArchive();
+                    break;
+                default:
+                    super.onActivityResult(requestCode, resultCode, data);
+            }
+        }
     }
 
     @Override
@@ -53,17 +72,81 @@ public class MainActivity extends GenericActivity<MVP.MainRequiredViewOps,
         }
     }
 
+    @Override
+    public void onTryToRefreshRefuelingList() {
+        getPresenter().reloadArchive();
+    }
+
+    @Override
+    public void setAdapter(UserListAdapter userListAdapter) {
+        mUserFragment.setAdapter(userListAdapter);
+    }
+
+    @Override
+    public void setAdapter(VehicleListAdapter vehicleListAdapter) {
+        mUserFragment.setAdapter(vehicleListAdapter);
+    }
+
+    @Override
+    public void setAdapter(RefuelingListAdapter refuelingListAdapter) {
+        mArchiveFragment.setAdapter(refuelingListAdapter);
+    }
+
+    @Override
+    public void showToast(String message) {
+        ActivityUtilities.showShortToast(this, message);
+    }
+
+    @Override
+    public void openNewRefueling(long vehicleId) {
+        startActivityForResult(
+                RefuelingActivity.makeIntent(
+                        getApplicationContext(),
+                        vehicleId,
+                        RefuelingActivity.NEW_REFUELING_ID),
+                RefuelingActivity.REQUEST_REFUELING_ACTIVITY);
+    }
+
+    @Override
+    public void stopRefreshing() {
+        mArchiveFragment.stopRefreshing();
+    }
+
+    public void selectUser(View view) {
+        // TODO
+    }
+
+    public void selectVehicle(View view) {
+        // TODO
+    }
+
+    public void addRefueling(View view) {
+        getPresenter().newRefueling();
+    }
+
     private void setupActionBar() {
         ActionBar actionBar = getActionBar();
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.partial_customized_action_bar, null);
+        TextView tvTitle = (TextView) v.findViewById(R.id.tv_action_bar_title);
+        tvTitle.setText(R.string.action_bar_title_refueling_archive);
         if (null != actionBar) {
             actionBar.setCustomView(v);
         }
     }
 
     private void initializeDrawer() {
+        mUserFragment = (UserFragment) getSupportFragmentManager().
+                findFragmentByTag(UserFragment.USER_FRAGMENT_TAG);
+        if (mUserFragment == null) {
+            mUserFragment = new UserFragment();
+            getSupportFragmentManager().beginTransaction().
+                    add(R.id.fragment_drawer_container,
+                            mUserFragment,
+                            UserFragment.USER_FRAGMENT_TAG).commit();
+        }
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.activity_main);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.activity_main_drawer_layout_opening,
@@ -92,18 +175,6 @@ public class MainActivity extends GenericActivity<MVP.MainRequiredViewOps,
                     add(R.id.fragment_archive,
                             mArchiveFragment,
                             ArchiveFragment.ARCHIVE_FRAGMENT_TAG).commit();
-        }
-    }
-
-    private void initializeRecord() {
-        mRecordFragment = (RecordFragment) getSupportFragmentManager().
-                findFragmentByTag(RecordFragment.RECORD_FRAGMENT_TAG);
-        if (mRecordFragment == null) {
-            mRecordFragment = new RecordFragment();
-            getSupportFragmentManager().beginTransaction().
-                    add(R.id.fragment_archive,
-                            mRecordFragment,
-                            RecordFragment.RECORD_FRAGMENT_TAG).commit();
         }
     }
 

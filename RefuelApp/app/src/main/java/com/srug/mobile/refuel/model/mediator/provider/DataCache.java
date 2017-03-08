@@ -283,11 +283,11 @@ public class DataCache {
                 DataContract.RefuelingEntry.COLUMN_VEHICLE_ID));
         long date = cursor.getLong(cursor.getColumnIndexOrThrow(
                 DataContract.RefuelingEntry.COLUMN_DATE));
-        long distance = cursor.getLong(cursor.getColumnIndexOrThrow(
+        Double distance = cursor.getDouble(cursor.getColumnIndexOrThrow(
                 DataContract.RefuelingEntry.COLUMN_DISTANCE));
-        long price = cursor.getLong(cursor.getColumnIndexOrThrow(
+        Double price = cursor.getDouble(cursor.getColumnIndexOrThrow(
                 DataContract.RefuelingEntry.COLUMN_PRICE));
-        long amount = cursor.getLong(cursor.getColumnIndexOrThrow(
+        Double amount = cursor.getDouble(cursor.getColumnIndexOrThrow(
                 DataContract.RefuelingEntry.COLUMN_AMOUNT));
 
         Refueling refueling = new Refueling(id, vehicleId);
